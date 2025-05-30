@@ -1,41 +1,19 @@
-'''欢迎来到LangChain实战课
-https://time.geekbang.org/column/intro/100617601
-作者 黄佳'''
+"""
+指定 system message
+并尝试使用 HumanMessage
+"""
+from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_ollama import ChatOllama
 
-from dotenv import load_dotenv  # 用于加载环境变量
-load_dotenv()  # 加载 .env 文件中的环境变量
-
-# import os
-# os.environ["OPENAI_API_KEY"] = '你的OpenAI API Key'
-
-# import openai
-
-# response = openai.ChatCompletion.create(
-#   model="gpt-4",
-#   messages=[
-#         {"role": "system", "content": "You are a creative AI."},
-#         {"role": "user", "content": "请给我的花店起个名"},
-#     ],
-#   temperature=0.8,
-#   max_tokens=60
-# )
-
-# print(response['choices'][0]['message']['content'])
-
-# print(response.choices)
-
-
-from openai import OpenAI
-client = OpenAI()
-
-response = client.chat.completions.create(  
-  model="gpt-4",
-  messages=[
-        {"role": "system", "content": "You are a creative AI."},
-        {"role": "user", "content": "请给我的花店起个名"},
-    ],
-  temperature=0.8,
-  max_tokens=60
+llm = ChatOllama(
+    base_url='localhost:11434',  # 服务地址
+    model='qwen3:8b',  # 模型名称
+    temperature=0.8
 )
-
-print(response.choices[0].message.content)
+response = llm.invoke(
+    [
+        SystemMessage(content="You are a creative AI."),
+        HumanMessage(content="请给我的花店起个名")
+    ]
+)
+print(response.content)
