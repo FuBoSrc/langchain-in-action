@@ -1,17 +1,12 @@
-'''欢迎来到LangChain实战课
-https://time.geekbang.org/column/intro/100617601
-作者 黄佳'''
-
-# import os
-# os.environ["OPENAI_API_KEY"] = '你的OpenAI API Key'
-
-from langchain_openai import ChatOpenAI
-chat = ChatOpenAI(model="gpt-4",
-                    temperature=0.8,
-                    max_tokens=60)
 from langchain.schema import (
     HumanMessage,
     SystemMessage
+)
+from langchain_ollama import ChatOllama
+
+chat = ChatOllama(
+    model="qwen3:8b",  # 模型名称
+    temperature=0.8
 )
 messages = [
     SystemMessage(content="你是一个很棒的智能助手"),

@@ -1,20 +1,18 @@
-'''欢迎来到LangChain实战课
-https://time.geekbang.org/column/intro/100617601
-作者 黄佳'''
-
-import os
-os.environ["OPENAI_API_KEY"] = '你的OpenAI API Key'
-from langchain.chat_models import ChatOpenAI
-chat = ChatOpenAI(model="gpt-4",
-                    temperature=0.8,
-                    max_tokens=60)
 from langchain.schema import (
     HumanMessage,
     SystemMessage
 )
+from langchain_ollama import ChatOllama
+
+chat = ChatOllama(
+    model="qwen3:8b",  # 模型名称
+    temperature=0.8
+)
+
 messages = [
     SystemMessage(content="你是一个很棒的智能助手"),
     HumanMessage(content="请给我的花店起个名")
 ]
+# 这种调用方式也已经被废弃，建议使用 invoke 方法
 response = chat(messages)
 print(response)
